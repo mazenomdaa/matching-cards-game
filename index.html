@@ -18,22 +18,22 @@
                 </h1>
             </div>
             <div class="start-button-div">
-                <button class="start-button" onclick="startGame()">Play</button>
+                <button class="start-button" onclick="play()">Play</button>
             </div>
             <div class="diff-box">
                 <div id="diff-text"><p>Difficulty</p></div>
                 <div class="button-box">
                     <div id="btn"></div>
                     <button type="button" class="toggle-btn"
-                        onclick="clickEasy()">
+                        onclick="easy()">
                         Easy
                     </button>
                     <button type="button" class="toggle-btn"
-                        onclick="clickMedium()">
+                        onclick="medium()">
                         Medium
                     </button>
                     <button type="button" class="toggle-btn"
-                        onclick="clickHard()">
+                        onclick="hard()">
                         Hard
                     </button>
                 </div>
@@ -50,7 +50,7 @@
                     <button
                         class="in-game-button"
                         id="restart-button"
-                        onclick="startGame()">
+                        onclick="play()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30"
                             height="30" fill="currentColor"
                             class="bi bi-arrow-repeat" viewBox="0 0 16 16">
@@ -61,7 +61,7 @@
                         </svg>
                     </button>
                     <button class="in-game-button" id="exit-button"
-                        onclick="exitGame()">
+                        onclick="exit()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30"
                             height="30" fill="currentColor"
                             class="bi bi-box-arrow-right" viewBox="0 0 16 16">
@@ -88,7 +88,7 @@
                     <p>Highest Score: <span
                             id="game-over-highest-score"></span></p>
                 </div>
-                <button class="Play-again-btn" onclick="startGame()">Play
+                <button class="Play-again-btn" onclick="play()">Play
                     Again</button>
             </div>
         </div>

@@ -1,5 +1,6 @@
 let btn = document.querySelector("#btn");
 let difficultyChosen = "easy";
+let allDifficultyButtons = document.querySelectorAll(".toggle-btn");
 let cards = [];
 let highestScore = localStorage.getItem("highestScore") || 0;
 let flippedCards = [];
@@ -10,22 +11,30 @@ let allCardElements = document.querySelectorAll(".card");
 let message = document.getElementById("game-over-message");
 
 document.getElementById("highest-score").textContent = highestScore;
-function clickEasy() {
-  btn.style.left = "0";
-  difficultyChosen = "easy";
-}
-function clickMedium() {
-  btn.style.left = "100px";
-  difficultyChosen = "medium";
-}
-function clickHard() {
-  btn.style.left = "200px";
-  difficultyChosen = "hard";
+
+function setActiveButton(button) {
+  allDifficultyButtons.forEach((btn) => btn.classList.remove("active"));
+  button.classList.add("active");
 }
 
-function startGame() {
-  message.classList.remove("winning-color");
-  message.classList.remove("losing-color");
+function easy() {
+  difficultyChosen = "easy";
+  setActiveButton(document.querySelector(".toggle-btn:nth-child(2)"));
+}
+
+function medium() {
+  difficultyChosen = "medium";
+  setActiveButton(document.querySelector(".toggle-btn:nth-child(3)"));
+}
+
+function hard() {
+  difficultyChosen = "hard";
+  setActiveButton(document.querySelector(".toggle-btn:nth-child(4)"));
+}
+
+function play() {
+  message.classList.remove("congrats-color");
+  message.classList.remove("gameover-color");
   allCards = generateCards(difficultyChosen);
   shuffledCards = shuffleArray(allCards);
   renderCards(shuffledCards);
@@ -41,9 +50,13 @@ function startGame() {
   }, 3000);
 }
 
-function exitGame() {
+function exit() {
   location.reload();
 }
+
+document.querySelector(".start-button").addEventListener("click", () => {
+  initializeActiveButton();
+});
 
 function generateCards(difficulty) {
   let cardCount;
@@ -128,12 +141,12 @@ function flipCard(card, cardValue, index) {
     flippedCards.push({ card, cardValue, index });
 
     if (flippedCards.length === 2) {
-      setTimeout(() => checkForMatch(), 500);
+      setTimeout(() => checkMatch(), 500);
     }
   }
 }
 
-function checkForMatch() {
+function checkMatch() {
   const [firstCard, secondCard] = flippedCards;
 
   if (firstCard.cardValue === secondCard.cardValue) {
@@ -149,13 +162,13 @@ function checkForMatch() {
   flippedCards = [];
 
   if (matchedCards.length === shuffledCards.length) {
-    gameOver("Congratulations! \nYou Won!");
-    message.classList.add("winning-color");
+    gameOver("Congrats!🥳 \nYou Won!");
+    message.classList.add("congrats-color");
   }
 
   if (score <= 0) {
-    gameOver("Game Over! You Lost!");
-    message.classList.add("losing-color");
+    gameOver("Game Over!😢 You Lost!");
+    message.classList.add("gameover-color");
   }
 }
 
